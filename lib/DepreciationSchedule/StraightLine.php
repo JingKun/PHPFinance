@@ -22,15 +22,13 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
+namespace \PHPFinance\DepreciationSchedule;
 
 /**
  * StraightLine class
  * 
  * Implements the straight-line method of depreciation.
  */
-require_once('DepreciationSchedule.php');
 
 class StraightLine extends DepreciationSchedule {
 	protected function calculateSchedule() {

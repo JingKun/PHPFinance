@@ -22,16 +22,13 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
+namespace \PHPFinance\DepreciationSchedule;
 
 /**
  * DoubleDeclining class
  * 
  * Implements the double-declining balance method of depreciation.
  */
-require_once('DepreciationSchedule.php');
-
 class DoubleDeclining extends DepreciationSchedule {
 	protected function calculateSchedule() {
 		$accumulatedDepreciation = 0;

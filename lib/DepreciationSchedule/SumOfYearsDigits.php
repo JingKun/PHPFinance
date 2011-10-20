@@ -22,15 +22,13 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
+namespace \PHPFinance\DepreciationSchedule;
 
 /**
  * SumOfYearsDigits class
  * 
  * Implements the Sum of Years Digits method of depreciation.
  */
-require_once('DepreciationSchedule.php');
 
 class SumOfYearsDigits extends DepreciationSchedule {
 	protected function calculateSchedule() {
