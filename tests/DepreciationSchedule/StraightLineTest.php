@@ -1,8 +1,10 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
+require_once('lib/DepreciationSchedule/DepreciationSchedule.php');
 require_once('lib/DepreciationSchedule/StraightLine.php');
 
-class StraightLineTest extends CustomPHPUnit {
+use \PHPFinance\DepreciationSchedule\StraightLine as StraightLine;
+
+class StraightLineTest extends PHPUnit_Framework_TestCase {
 	private $schedule;
 
 	public function __construct() {

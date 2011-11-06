@@ -1,8 +1,10 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
+require_once('lib/DepreciationSchedule/DepreciationSchedule.php');
 require_once('lib/DepreciationSchedule/DoubleDeclining.php');
 
-class DoubleDecliningTest extends CustomPHPUnit {
+use \PHPFinance\DepreciationSchedule\DoubleDeclining as DoubleDeclining;
+
+class DoubleDecliningTest extends PHPUnit_Framework_TestCase {
 	private $schedule;
 
 	public function __construct() {

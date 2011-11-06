@@ -1,8 +1,10 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
+require_once('lib/DepreciationSchedule/DepreciationSchedule.php');
 require_once('lib/DepreciationSchedule/SumOfYearsDigits.php');
 
-class SumOfYearsDigitsTest extends CustomPHPUnit {
+use \PHPFinance\DepreciationSchedule\SumOfYearsDigits as SumOfYearsDigits;
+
+class SumOfYearsDigitsTest extends PHPUnit_Framework_TestCase {
 	private $schedule;
 
 	public function __construct() {

@@ -1,8 +1,10 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
+require_once('lib/DepreciationSchedule/DepreciationSchedule.php');
 require_once('lib/DepreciationSchedule/Macrs.php');
 
-class MacrsTest extends CustomPHPUnit {
+use \PHPFinance\DepreciationSchedule\Macrs as Macrs;
+
+class MacrsTest extends PHPUnit_Framework_TestCase {
 	private $schedule;
 
 	public function __construct() {
