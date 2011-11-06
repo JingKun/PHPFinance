@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP Statistics Library
+ * PHP Finance Library
  *
  * Copyright (C) 2011-2012 Michael Cordingley <mcordingley@gmail.com>
  * 
@@ -20,9 +20,9 @@
  * 
  * LGPL Version 3
  *
- * @package PHPStats
+ * @package PHPFinance
  */
-namespace \PHPFinance\DepreciationSchedule;
+namespace PHPFinance\DepreciationSchedule;
 
 /**
  * DoubleDeclining class
