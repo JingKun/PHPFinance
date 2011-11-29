@@ -22,6 +22,7 @@
  *
  * @package PHPFinance
  */
+ 
 namespace PHPFinance\DepreciationSchedule;
 
 /**
@@ -29,7 +30,6 @@ namespace PHPFinance\DepreciationSchedule;
  * 
  * Implements the straight-line method of depreciation.
  */
-
 class StraightLine extends DepreciationSchedule {
 	protected function calculateSchedule() {
 		$accumulatedDepreciation = 0;
@@ -52,4 +52,3 @@ class StraightLine extends DepreciationSchedule {
 		}
 	}
 }
-?>

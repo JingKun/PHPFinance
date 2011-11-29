@@ -22,6 +22,7 @@
  *
  * @package PHPFinance
  */
+ 
 namespace PHPFinance\DepreciationSchedule;
 
 /**
@@ -55,4 +56,3 @@ class DoubleDeclining extends DepreciationSchedule {
 		}
 	}
 }
-?>

@@ -22,6 +22,7 @@
  *
  * @package PHPFinance
  */
+ 
 namespace PHPFinance\DepreciationSchedule;
 
 /**
@@ -99,4 +100,3 @@ abstract class DepreciationSchedule {
 		else return end($this->schedule['AccumulatedDepreciation'][$year]);
 	}
 }
-?>

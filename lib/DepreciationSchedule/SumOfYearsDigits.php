@@ -22,6 +22,7 @@
  *
  * @package PHPFinance
  */
+ 
 namespace PHPFinance\DepreciationSchedule;
 
 /**
@@ -29,7 +30,6 @@ namespace PHPFinance\DepreciationSchedule;
  * 
  * Implements the Sum of Years Digits method of depreciation.
  */
-
 class SumOfYearsDigits extends DepreciationSchedule {
 	protected function calculateSchedule() {
 		$accumulatedDepreciation = 0;
@@ -56,4 +56,3 @@ class SumOfYearsDigits extends DepreciationSchedule {
 		}
 	}
 }
-?>

@@ -22,6 +22,7 @@
  *
  * @package PHPFinance
  */
+ 
 namespace PHPFinance\DepreciationSchedule;
 
 /**
@@ -31,7 +32,6 @@ namespace PHPFinance\DepreciationSchedule;
  * 10, 15, and 20 year schedules.  Compliant with IRS publication 946 table A-1
  * This method uses the half-year convention.
  */
-
 class Macrs extends DepreciationSchedule {
 	private $macrsTables = array(
 		3 => array(0.3333, 0.4445, 0.1481, 0.0741),
@@ -67,4 +67,3 @@ class Macrs extends DepreciationSchedule {
 		}
 	}
 }
-?>
