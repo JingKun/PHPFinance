@@ -36,6 +36,17 @@ class TimeValue {
 	private static function beginningPaymentsOffset($rate, $isBeginning) {
 		return 1 + $rate * $isBeginning?1:0;
 	}
+	
+	//Factored out for reuse with arbitrary rates and cash flows
+	private static function calculateNPV(array $cashFlows, $rate) {
+		$NPV = 0;
+		
+		foreach ($this->cashFlows as $k => $flow) {
+			$NPV += TimeValue::calculatePV($this->rate, $k, 0, $flow, false);
+		}
+		
+		return $NPV;
+	}
 
 	/**
 	 * Calculate Rate function

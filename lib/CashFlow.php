@@ -177,13 +177,7 @@ class CashFlow {
 	 */
 	public function getNPV() {
 		if ($this->NPV == null) {
-			$NPV = 0;
-			
-			foreach ($this->cashFlows as $k => $flow) {
-				$NPV += TimeValue::calculatePV($this->rate, $k, 0, $flow, false);
-			}
-			
-			$this->NPV = $NPV;
+			$this->NPV = TimeValue::calculateNPV($this->cashFlows, $this->rate);
 		}
 		
 		return $this->NPV;
@@ -196,11 +190,34 @@ class CashFlow {
 	 * flows.
 	 * 
 	 * @return float The IRR, as a decimal
-	 * @todo Need some way to numerically solve this
 	 */
 	public function getIRR() {
+		//Source: http://en.wikipedia.org/wiki/Internal_rate_of_return#Numerical_solution
 		if ($this->IRR == null) {
-		
+			//Initial guesses to seed the approximation
+			$IRRn_1 = 0;
+			$IRR = $this->rate;
+			$NPVn_1 = TimeValue::calculateNPV($this->cashFlows, $IRRn_1);
+			$NPVn = TimeValue::calculateNPV($this->cashFlows, $IRR);
+			
+			//Start the iterations
+			while (abs($NPVn) > 0.000001) {
+				$NPVn = TimeValue::calculateNPV($this->cashFlows, $IRR);
+				$IRR1 = $IRR - $NPVn*(($IRR - $IRRn_1)/($NPVn - $NPVn_1));
+				
+				//Shift values for next iteration
+				$IRRn_1 = $IRR;
+				$IRR = $IRR1;
+				$NPVn_1 = $NPVn;
+				
+				//Check to see if we're diverging toward infinity (100,000% is considered absurdly high, and therefore a mark of divergence)
+				if ($IRR > 1000) {
+					$this->IRR = INF;
+					break;
+				}
+			}
+			
+			$this->IRR = $IRR;
 		}
 		
 		return $this->IRR;
