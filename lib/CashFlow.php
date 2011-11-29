@@ -198,7 +198,6 @@ class CashFlow {
 			$IRRn_1 = 0;
 			$IRR = $this->rate;
 			$NPVn_1 = TimeValue::calculateNPV($this->cashFlows, $IRRn_1);
-			$NPVn = TimeValue::calculateNPV($this->cashFlows, $IRR);
 			
 			//Start the iterations
 			while (abs($NPVn) > 0.000001) {
