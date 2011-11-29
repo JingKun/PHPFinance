@@ -30,7 +30,7 @@ namespace PHPFinance;
  * 
  * Class that represents an irregular series of cash flows.
  */
- class CashFlow {
+class CashFlow {
 	protected $cashFlows;
 	protected $rate
 	
@@ -235,4 +235,4 @@ namespace PHPFinance;
 		
 		return $this->MIRR;
 	}
- }
+}
