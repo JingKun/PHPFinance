@@ -22,37 +22,99 @@
  *
  * @package PHPFinance
  */
-namespace \PHPFinance;
+ 
+namespace PHPFinance;
 
+/**
+ * TimeValue class
+ * 
+ * Static class that exposes basic time-value of money calculations.  Positive
+ * cash values represent inflows and negative cash values represent outflows.
+ */
 class TimeValue {
 	//Functions for regular cash flows
 	private static function beginningPaymentsOffset($rate, $isBeginning) {
 		return 1 + $rate * $isBeginning?1:0;
 	}
 
-	public static function calculateRate($periods, $pv, $pmt, $fv, $isBeginning = true) {
+	/**
+	 * Calculate Rate function
+	 * 
+	 * @param float $periods The number of compounding periods for the cash flow
+	 * @param float $pv The present value
+	 * @param float $pmt The recurring payment value
+	 * @param float $fv The future value
+	 * @param bool $isBeginning Whether cash flows are assessed at the beginning of a period or at the end
+	 * @return float The interest rate per period, as a decimal instead of a percent
+	 * @static
+	 * @todo Find a good iterative approach to calculating this.
+	 */
+	public static function calculateRate($periods, $pv, $pmt, $fv, $isBeginning = false) {
 		if ($pmt == 0) return pow(-$fv / $pv, 1 / $periods) - 1;
 		else return 0; //TODO
 	}
 
-	public static function calculatePeriods($rate, $pv, $pmt, $fv, $isBeginning = true) {
+	/**
+	 * Calculate Periods function
+	 * 
+	 * @param float $rate The interest rate per period, as a decimal instead of a percent
+	 * @param float $pv The present value
+	 * @param float $pmt The recurring payment value
+	 * @param float $fv The future value
+	 * @param bool $isBeginning Whether cash flows are assessed at the beginning of a period or at the end
+	 * @return float The number of compounding periods for the cash flow
+	 * @static
+	 */
+	public static function calculatePeriods($rate, $pv, $pmt, $fv, $isBeginning = false) {
 		if ($rate == 0) return -($pv + $fv) / $pmt;
-		else return log(($pmt * beginningPaymentsOffset($rate, $isBeginning) - $fv * $rate)/($pmt * beginningPaymentsOffset($rate, $isBeginning) + $pv * rate)/log(1 + $rate);
+		else return log(($pmt * self::beginningPaymentsOffset($rate, $isBeginning) - $fv * $rate)/($pmt * self::beginningPaymentsOffset($rate, $isBeginning) + $pv * rate)/log(1 + $rate);
 	}
 
-	public static function calculatePV($rate, $periods, $pmt, $fv, $isBeginning = true) {
+	/**
+	 * Calculate Present Value function
+	 * 
+	 * @param float $rate The interest rate per period, as a decimal instead of a percent
+	 * @param float $periods The number of compounding periods for the cash flow
+	 * @param float $pmt The recurring payment value
+	 * @param float $fv The future value
+	 * @param bool $isBeginning Whether cash flows are assessed at the beginning of a period or at the end
+	 * @return float The present value
+	 * @static
+	 */
+	public static function calculatePV($rate, $periods, $pmt, $fv, $isBeginning = false) {
 		if ($rate == 0) return -($pmt * $periods + $fv);
-		else return ($pmt * beginningPAymentsOffset($rate, $isBeginning) / $rate - $fv) * (1 / pow(1 + $rate, $periods)) - ($pmt * beginningPAymentsOffset($rate, $isBeginning) / $rate);
+		else return ($pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate - $fv) * (1 / pow(1 + $rate, $periods)) - ($pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate);
 	}
 
-	public static function calculatePMT($rate, $periods, $pv, $fv, $isBeginning = true) {
+	/**
+	 * Calculate Payment function
+	 * 
+	 * @param float $rate The interest rate per period, as a decimal instead of a percent
+	 * @param float $periods The number of compounding periods for the cash flow
+	 * @param float $pv The present value
+	 * @param float $fv The future value
+	 * @param bool $isBeginning Whether cash flows are assessed at the beginning of a period or at the end
+	 * @return float The recurring payment value
+	 * @static
+	 */
+	public static function calculatePMT($rate, $periods, $pv, $fv, $isBeginning = false) {
 		if ($rate == 0) return -($pv + $fv) / $periods;
-		else return (-$rate / beginningPAymentsOffset($rate, $isBeginning)) * ($pv + ($pv + $fv) / (pow(1 + $rate, $periods) - 1));
+		else return (-$rate / self::beginningPAymentsOffset($rate, $isBeginning)) * ($pv + ($pv + $fv) / (pow(1 + $rate, $periods) - 1));
 	}
 
-	public static function calculateFV($rate, $periods, $pv, $pmt, $isBeginning = true) {
+	/**
+	 * Calculate Future Value function
+	 * 
+	 * @param float $rate The interest rate per period, as a decimal instead of a percent
+	 * @param float $periods The number of compounding periods for the cash flow
+	 * @param float $pv The present value
+	 * @param float $pmt The recurring payment value
+	 * @param bool $isBeginning Whether cash flows are assessed at the beginning of a period or at the end
+	 * @return float The future value
+	 * @static
+	 */
+	public static function calculateFV($rate, $periods, $pv, $pmt, $isBeginning = false) {
 		if ($rate == 0) return -($pv + $pmt * $periods);
-		else return ($pmt * beginningPAymentsOffset($rate, $isBeginning) / $rate) - pow(1 + $rate, $periods) * ($pv + $pmt * beginningPAymentsOffset($rate, $isBeginning) / $rate);
+		else return ($pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate) - pow(1 + $rate, $periods) * ($pv + $pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate);
 	}
 }
-?>
