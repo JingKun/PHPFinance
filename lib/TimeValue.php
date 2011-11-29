@@ -83,7 +83,7 @@ class TimeValue {
 	 */
 	public static function calculatePV($rate, $periods, $pmt, $fv, $isBeginning = false) {
 		if ($rate == 0) return -($pmt * $periods + $fv);
-		else return ($pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate - $fv) * (1 / pow(1 + $rate, $periods)) - ($pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate);
+		else return ($pmt * self::beginningPaymentsOffset($rate, $isBeginning) / $rate - $fv) * (1 / pow(1 + $rate, $periods)) - ($pmt * self::beginningPaymentsOffset($rate, $isBeginning) / $rate);
 	}
 
 	/**
@@ -99,7 +99,7 @@ class TimeValue {
 	 */
 	public static function calculatePMT($rate, $periods, $pv, $fv, $isBeginning = false) {
 		if ($rate == 0) return -($pv + $fv) / $periods;
-		else return (-$rate / self::beginningPAymentsOffset($rate, $isBeginning)) * ($pv + ($pv + $fv) / (pow(1 + $rate, $periods) - 1));
+		else return (-$rate / self::beginningPaymentsOffset($rate, $isBeginning)) * ($pv + ($pv + $fv) / (pow(1 + $rate, $periods) - 1));
 	}
 
 	/**
@@ -115,6 +115,6 @@ class TimeValue {
 	 */
 	public static function calculateFV($rate, $periods, $pv, $pmt, $isBeginning = false) {
 		if ($rate == 0) return -($pv + $pmt * $periods);
-		else return ($pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate) - pow(1 + $rate, $periods) * ($pv + $pmt * self::beginningPAymentsOffset($rate, $isBeginning) / $rate);
+		else return ($pmt * self::beginningPaymentsOffset($rate, $isBeginning) / $rate) - pow(1 + $rate, $periods) * ($pv + $pmt * self::beginningPaymentsOffset($rate, $isBeginning) / $rate);
 	}
 }
