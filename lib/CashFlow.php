@@ -32,7 +32,7 @@ namespace PHPFinance;
  */
 class CashFlow {
 	protected $cashFlows;
-	protected $rate
+	protected $rate;
 	
 	protected $payback;
 	protected $discountedPayback;
@@ -63,7 +63,7 @@ class CashFlow {
 	
 	//Returns 1 on positive and -1 on negative.
 	private function getSign($number) {
-		return ($number == abs($number))1?-1;
+		return ($number == abs($number))?1:-1;
 	}
 	
 	//Getters/Setters

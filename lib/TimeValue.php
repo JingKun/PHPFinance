@@ -119,7 +119,7 @@ class TimeValue {
 		else {
 			$cashFlows = array($pv);
 			for ($i = 0; $i < $periods; $i++) $cashFlows[] = $pmt;
-			$cashFlows[] = $fv
+			$cashFlows[] = $fv;
 		
 			return self::calculateIRR($cashFlows, 0.1);
 		}
@@ -138,7 +138,7 @@ class TimeValue {
 	 */
 	public static function calculatePeriods($rate, $pv, $pmt, $fv, $isBeginning = false) {
 		if ($rate == 0) return -($pv + $fv) / $pmt;
-		else return log(($pmt * self::beginningPaymentsOffset($rate, $isBeginning) - $fv * $rate)/($pmt * self::beginningPaymentsOffset($rate, $isBeginning) + $pv * rate)/log(1 + $rate);
+		else return log(($pmt * self::beginningPaymentsOffset($rate, $isBeginning) - $fv * $rate)/($pmt * self::beginningPaymentsOffset($rate, $isBeginning) + $pv * $rate))/log(1 + $rate);
 	}
 
 	/**

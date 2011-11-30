@@ -16,7 +16,7 @@
 		</pharpackage>
 	</target>
 
-	<target name="test">
+	<target name="test" depends="lint">
 		<fileset dir="." id="pharfile">
 		        <include name="PHPFinance.phar" />
     		</fileset>
@@ -27,5 +27,13 @@
 				</fileset>
 			</batchtest>
 		</phpunit>
+	</target>
+	
+	<target name="lint">
+		<phplint haltonfailure="true" deprecatedAsError="true">
+			<fileset dir="./lib">
+				<include name="**/*.php" />
+			</fileset>
+		</phplint>
 	</target>
 </project>
