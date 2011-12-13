@@ -32,9 +32,17 @@ namespace PHPFinance;
  * 
  */
 class Bond {
-	private $timeSeries;
+	private $maturityDate;
+	private $startDate;
+	private $couponRate;
+	private $couponFrequency;
+	private $parValue;
 
-	function __construct($maturity, $start, $couponRate = 5, $couponFrequency = 2, $par = 100) {
-		$this->timeSeries = $data;
+	function __construct($maturityDate, $startDate, $couponRate = 5, $couponFrequency = 2, $parValue = 100) {
+		$this->maturityDate = $maturityDate;
+		$this->startDate = $startDate;
+		$this->couponRate = $couponRate;
+		$this->couponFrequency = $couponFrequency;
+		$this->parValue = $parValue;
 	}
 }
