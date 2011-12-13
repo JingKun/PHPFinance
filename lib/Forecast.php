@@ -118,16 +118,22 @@ class Forecast {
 	 */
 	public function tripleExponentialSmoothing($periods = 0, $seasonLength = 12, $alpha = 0.5, $beta = 0.5, $gamma = 0.5) {
 		$predictions = array($this->timeSeries[0]);
-		$trend = array(0);
-		$seasonal = array(array_fill(0, $seasonLength, 0);
+		$trend = array($this->timeSeries[1] - $this->timeSeries[0]);
+		$seasonal = array(array_fill(0, $seasonLength, 0));
 		
 		//"Predict" observations
 		for ($i = 1; $i < count($this->timeSeries); $i++) {
-			$predictions[] = $alpha * $this->timeSeries[$i] / 
+			//NB: The pre-fill of the seasonal array provides the necessary offset of $seasonLength for one complete cycle
+			$predictions[] = $alpha * $this->timeSeries[$i] / $seasonal[$i] + (1 - $alpha) * $F[$i];
+			$trend[] = $beta * ($predictions[$i] - $predictions[$i - 1]) + (1 - $beta) * $trend[$i - 1];
+			$seasonal[] = $gamma * $this->timeSeries[$i] / $predictions[$i] + (1 - $gamma) * $seasonal[$i];
 		}
 		
+		$lastObservedIndex = count($this->timeSeries) - 1;
+		
 		//Carry it forward into the future
-		for ($i = count($this->timeSeries); $i < $periods + count($this->timeSeries); $i++) {
+		for ($i = $lastObservedIndex + 1; $i < $periods + $lastObservedIndex + 1; $i++) {
+			$predictions[] = ($predictions[$lastObservedIndex] + ($i - $lastObservedIndex) * $trend[$lastObservedIndex]) * $seasonal[$lastObservedIndex - $seasonLength + 1 + (($i + 1) % $seasonLength)];
 		}
 		
 		return $predictions;
